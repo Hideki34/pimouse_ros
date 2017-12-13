@@ -4,10 +4,10 @@ import rospy, unittest, rostest, actionlib
 import rosnode
 import time
 from std_msgs.msg import UInt16
-from pimouse_ros.msg import MusicAction, MusicResult, MusicFeedback, MusicGoal
+from pimouse_ros.msg import MusicAction, MusicResult, MusicFeedback, MusicGoal #1行追加
 
 class BuzzerTest(unittest.TestCase):
-    def setUp(self):
+    def setUp(self):                                #setUpメソッドを追加する
         self.client = actionlib.SimpleActionClient("music", MusicAction)
         self.device_values = []
 
@@ -21,7 +21,7 @@ class BuzzerTest(unittest.TestCase):
             pub.publish(1234)
             time.sleep(0.1)
 
-       with open("/dev/rtbuzzer0","r") as f:
+        with open("/dev/rtbuzzer0","r") as f:
             data = f.readline()
             self.assertEqual(data,"1234\n","value does not written to rtbuzzer0")
 
